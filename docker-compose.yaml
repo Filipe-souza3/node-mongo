@@ -1,0 +1,37 @@
+
+name: "mongo"
+services:
+  mongo:
+      image: mongodb/mongodb-community-server
+      container_name: mongodb
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: admin
+        MONGO_INITDB_DATABASE: food
+      ports:
+        - 27017:27017
+      networks:
+      - rede
+
+  mongo-express:
+      image: mongo-express
+      container_name: mongo-express
+      environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+        ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+        ME_CONFIG_BASICAUTH_USERNAME: admin
+        ME_CONFIG_BASICAUTH_PASSWORD: admin
+        ME_CONFIG_MONGODB_SERVER: mongo
+        ME_CONFIG_MONGODB_URL:: mongodb://admin:admin@mongo:27017/
+      ports:
+        - "8081:8081"
+      networks:
+      - rede
+
+networks:
+  rede:
+    external:
+      name: rede-mongo
+
+
+
