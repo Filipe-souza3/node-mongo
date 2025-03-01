@@ -1,14 +1,10 @@
 'use strict'
-const { Router } = require("express");
-const route = Router();
-const _produtoController = require("../controller/produto-contoller");
+const _controller = require("../controller/produto-contoller");
+const baseRouter = require("./base-router");
 
-const produtoController = new _produtoController();
-
-route.get("/", produtoController.get);
-route.get("/:id", produtoController.getById);
-route.post("/", produtoController.post);
-route.put("/:id", produtoController.put);
-route.delete("/:id", produtoController.delete);
-
+class route extends baseRouter{
+    constructor(){
+        super(new _controller(), true);
+    }
+}
 module.exports = route;

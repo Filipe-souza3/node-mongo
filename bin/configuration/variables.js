@@ -4,6 +4,9 @@ const variables = {
     },
     database:{
         connection: process.env.connection || 'mongodb://admin:admin@localhost:27017/food?authSource=admin'
+    },
+    security:{
+        secretKey:"82465b23f7ab5cecf8bce61aa866fb5f5f5f82708bce61aa866fb5f"
     }
 }
 

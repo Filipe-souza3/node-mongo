@@ -1,4 +1,4 @@
-'use strict' 
+'use strict'
 
 class BaseRepository {
 
@@ -6,7 +6,7 @@ class BaseRepository {
 
     constructor(m, proj) {
         this.model = m;
-        if(proj){
+        if (proj) {
             this.projecao = proj;
         }
         this.create = this.create.bind(this);
@@ -18,6 +18,7 @@ class BaseRepository {
 
     async create(req) {
         let modelo = new this.model(req.body);
+
         return await modelo.save({}, this.projecao);
     }
 
@@ -25,14 +26,14 @@ class BaseRepository {
         return await this.model.find({}, this.projecao);
     }
 
-    async findByid(req) {
-        return await this.model.findById(req.params.id, this.projecao);
+    async findByid(id) {
+        return await this.model.findById(id, this.projecao);
     }
 
-    
-    async update(req) {
-        await this.model.findByIdAndUpdate(req.params.id, { $set: req.body });
-        return await this.model.findById(req.params.id, this.projecao);
+
+    async update(id, data) {
+        await this.model.findByIdAndUpdate(id, { $set: data },);
+        return await this.model.findById(id, this.projecao);
     }
 
     async delete(req) {

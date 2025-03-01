@@ -20,7 +20,6 @@ class BaseController {
    // post = async (req, res) => {
    async post(req, res) {
       try {
-         this.validation.isValid(req, res, "Erro com algum dos campos");
          return res.status(201).send(await this.repository.create(req));
       } catch (error) {
          console.log(error);
@@ -40,7 +39,7 @@ class BaseController {
    async getById(req, res) {
       try {
          if (req.params.id) {
-            return res.status(200).send(await this.repository.findByid(req));
+            return res.status(200).send(await this.repository.findByid(req.params.id));
          }
          return res.status(406).send("valor como parametro invalido");
 
@@ -53,7 +52,7 @@ class BaseController {
    async put(req, res) {
       try {
          if (this.validation.isValid(req)) {
-            return res.status(202).send(await this.repository.update(req));
+            return res.status(202).send(await this.repository.update(req.params.id, req.body));
          }
          return res.status(202).send("valores invalidos");
 

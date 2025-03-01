@@ -1,5 +1,4 @@
 'use strict'
-
 const express = require('../food.Api/bin/express');
 const variables = require('../food.Api/bin/configuration/variables');
 

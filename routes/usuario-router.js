@@ -1,14 +1,34 @@
 'use strict'
-const { Router } = require("express");
-const route = Router();
-const _usuarioController = require("../controller/usuario-controller");
+const _controller = require("../controller/usuario-controller");
+const baseRouter = require("./base-router");
 
-const usuarioController = new _usuarioController();
+class route extends baseRouter {
 
-route.get("/", usuarioController.get);
-route.get("/:id", usuarioController.getById);
-route.post("/", usuarioController.post);
-route.put("/:id", usuarioController.put);
-route.delete("/:id", usuarioController.delete);
+    constructor() {
+        super(new _controller(), false);
+    }
 
+    createRouteAuth(){
+        this.router.post("/auth", this.controller.authentication);
+    }
+
+    returnRouter(){
+        this.setRouter();
+        this.createRouteAuth();
+        return this.router;
+    }
+}
 module.exports = route;
+
+// const usuarioController = new _usuarioController();
+// const authentication = new _auth();
+
+// route.post("/auth", usuarioController.authentication);
+// route.get("/",authentication.auth, usuarioController.get);
+// route.get("/:id",authentication.auth,  usuarioController.getById);
+// route.post("/", usuarioController.post);
+// route.put("/:id", authentication.auth, usuarioController.put);
+// route.delete("/:id", authentication.auth, usuarioController.delete);
+
+
+// module.exports = route;
